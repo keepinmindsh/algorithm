@@ -10,30 +10,36 @@ function solution(skill, skill_trees) {
     for( let i = 0; i < skillTreeRows ; i ++){
 
         let isPass = false;
-        for (let j = 0; j < wordLength - 1; j ++ ){
         
-            let preWordIndexOf = skill_trees[i].indexOf(skill.substring(j, j + 1));
-            let nextWordIndexOf = skill_trees[i].indexOf(skill.substring(j + 1, j + 2));
-
-            if(preWordIndexOf == -1 && nextWordIndexOf > -1){
-                isPass = false;
-                break;
-            }else if(preWordIndexOf > -1 && nextWordIndexOf > -1 && preWordIndexOf < nextWordIndexOf ){
-                isPass = true;
-            }else if(preWordIndexOf == nextWordIndexOf){
-                isPass = true;
-            }else if(preWordIndexOf > -1 && nextWordIndexOf == -1){
-                isPass = true;
-            }else {
-                isPass = false;
-                break;
-            }
-        }
-
-        if(isPass){
+        if(wordLength == 1){
             answer++;
-            console.log(skill_trees[i]);
-        }
+        }else{
+            for (let j = 0; j < wordLength - 1; j ++ ){
+                
+                let stringValue = skill_trees[i];
+        
+                let preWordIndexOf = stringValue.indexOf(skill.substring(j, j + 1));
+                let nextWordIndexOf = stringValue.indexOf(skill.substring(j + 1, j + 2));
+
+                if(preWordIndexOf > -1 && nextWordIndexOf == -1){
+                    isPass = true;
+                }else if(preWordIndexOf == -1 && nextWordIndexOf > -1){
+                    isPass = false;
+                    break;
+                }else if(preWordIndexOf < nextWordIndexOf ){
+                    isPass = true;
+                }else if(preWordIndexOf == nextWordIndexOf){
+                    isPass = true;
+                }else {
+                    isPass = false;
+                    break;
+                }
+            } 
+            
+            if(isPass){
+                answer++;
+            }
+        }    
     }
   
     return answer;
